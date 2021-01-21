@@ -29,8 +29,8 @@ static int parseAndExecute() {
 }
 
 int openFile() {
-	char header[8];
-	int bufferSize = strlen(header);
+	char header[9];
+	int bufferSize = sizeof(header)-1;
 	char headerContents[8];
     FILE *fp; // declaration of file pointer
     char con[1000]; // variable to read the content
@@ -38,7 +38,9 @@ int openFile() {
     if (!fp) {
 		return 1;
 	};
-	printf(sizeof(fread(header, bufferSize, 1, fp)));
+	fread(header, bufferSize, 1, fp);
+	header[8] = 0;
+	printf(header);
 	printf("\n");
     while (fgets(con,1000, fp)!=NULL)// reading file content
     printf("%s",con);
